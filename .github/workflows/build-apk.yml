@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - ana
+      - main
 
 jobs:
   build:
@@ -23,10 +23,10 @@ jobs:
       - name: Android SDK kur
         uses: android-actions/setup-android@v3
 
-      - name: Gradle kur
+      - name: Gradle 8.9 kur
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.7'
+          gradle-version: '8.9'
 
       - name: APK derle
         run: gradle assembleDebug
@@ -35,4 +35,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MultiWA-debug-apk
-          path: uygulama/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/*.apk
