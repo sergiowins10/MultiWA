@@ -1,0 +1,38 @@
+name: MultiWA APK Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - ana
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu al
+        uses: actions/checkout@v4
+
+      - name: Java 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK kur
+        uses: android-actions/setup-android@v3
+
+      - name: Gradle kur
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: APK derle
+        run: gradle assembleDebug
+
+      - name: APK dosyasini yukle
+        uses: actions/upload-artifact@v4
+        with:
+          name: MultiWA-debug-apk
+          path: uygulama/build/outputs/apk/debug/*.apk
